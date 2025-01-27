@@ -5,10 +5,10 @@ async function analisarFaturamento(filePath) {
     const data = await fs.promises.readFile(filePath, 'utf8');
     const dados = JSON.parse(data);
 
-    const somaTotal = dados.reduce((acc, item) => acc + item.valor, 0);
-    const mediaMensal = somaTotal / dados.length;
-    const menorValor = Math.min(...dados.map(item => item.valor).filter(valor => valor > 0));
-    const maiorValor = Math.max(...dados.map(item => item.valor));
+    const somaTotal = dados.reduce((acc, item) => acc + item.valor, 0).toFixed(1);
+    const mediaMensal = somaTotal / dados.length.toFixed(2);
+    const menorValor = Math.min(...dados.map(item => item.valor).filter(valor => valor > 0)).toFixed(2);
+    const maiorValor = Math.max(...dados.map(item => item.valor)).toFixed(2);
     const diasAcimaDaMedia = dados.filter(item => item.valor > mediaMensal).length;
 
     return {
